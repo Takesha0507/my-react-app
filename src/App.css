@@ -1,0 +1,110 @@
+/* Общие стили для всей страницы */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Красивый фиолетовый градиент */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registration-card {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
+}
+
+.registration-card:hover {
+  transform: translateY(-5px);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.input-group input {
+  padding: 12px 16px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-size: 16px;
+}
+
+.input-group input:focus {
+  border-color: #764ba2;
+}
+
+.error-text {
+  color: #ff4d4d;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #764ba2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background: #5a368c;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* Контейнер для центрирования */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px; /* Отступ от фиолетовой кнопки */
+}
+
+/* Стили самой «ссылки» */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #007bff; /* Цвет ссылки (или выбери фиолетовый под стиль) */
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.toggle-btn:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
