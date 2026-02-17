@@ -1,0 +1,413 @@
+/* ===== ОБЁРТКА ===== */
+.home-wrapper {
+  min-height: 100vh;
+  background: #f0f2f5;
+  font-family: sans-serif;
+}
+
+/* ===== ШАПКА ===== */
+.home-header {
+  background: #fff;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.home-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.home-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-user-email {
+  font-size: 14px;
+  color: #555;
+}
+
+.home-logout-btn {
+  padding: 8px 16px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.home-logout-btn:hover {
+  background: #fecaca;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+.home-main {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* ===== БАННЕР ===== */
+.home-banner {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: 16px;
+  padding: 36px 40px;
+  color: #fff;
+  margin-bottom: 32px;
+}
+
+.home-banner-title {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.home-banner-sub {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 16px;
+}
+
+/* ===== КАРТОЧКИ ИНФО ===== */
+.home-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.info-card-icon {
+  font-size: 28px;
+}
+
+.info-card-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.info-card-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  word-break: break-all;
+}
+
+/* ===== КАРТОЧКИ ДЕЙСТВИЙ ===== */
+.home-actions-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.action-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.action-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.action-card-icon {
+  font-size: 32px;
+}
+
+.action-card-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.action-card-desc {
+  font-size: 13px;
+  color: #888;
+}
+
+/* ===== СЕКЦИЯ БОЛЬНИЦ ===== */
+.hospital-section {
+  margin-top: 8px;
+}
+
+.hospital-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.hospital-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.hospital-selected-badge {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===== ПОИСК И ФИЛЬТРЫ ===== */
+.hospital-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.hospital-search {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hospital-search:focus {
+  border-color: #4f46e5;
+}
+
+.hospital-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #4f46e5;
+  color: #4f46e5;
+}
+
+.filter-btn.active {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
+}
+
+/* ===== СПИСОК БОЛЬНИЦ ===== */
+.hospital-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.hospital-empty {
+  color: #888;
+  text-align: center;
+  padding: 40px;
+  grid-column: 1 / -1;
+}
+
+/* ===== КАРТОЧКА БОЛЬНИЦЫ ===== */
+.hospital-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.hospital-card:hover {
+  border-color: #c7d2fe;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-card.selected {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.hospital-card.confirmed {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.hospital-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.hospital-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.hospital-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.hospital-address {
+  font-size: 13px;
+  color: #777;
+}
+
+/* ===== БЕЙДЖ ТИПА ===== */
+.hospital-type-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.type-private {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.type-state {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.type-multi {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* ===== ЗВЁЗДЫ ===== */
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.star {
+  font-size: 16px;
+  color: #d1d5db;
+}
+
+.star.filled {
+  color: #f59e0b;
+}
+
+.rating-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-left: 6px;
+}
+
+.hospital-reviews {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+/* ===== ТЕГИ ===== */
+.hospital-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.hospital-tag {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* ===== МЕТА ===== */
+.hospital-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+/* ===== КНОПКА ПРИКРЕПИТЬСЯ ===== */
+.hospital-confirm-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.hospital-confirm-btn:hover {
+  background: #4338ca;
+}
+
+.confirmed-mark {
+  font-size: 18px;
+  color: #16a34a;
+  font-weight: 700;
+}

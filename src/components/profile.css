@@ -1,0 +1,466 @@
+/* ===== ОБЁРТКА ===== */
+.profile-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: #f0f2f5;
+  font-family: sans-serif;
+}
+
+/* ===== ШАПКА ===== */
+.profile-header {
+  background: #fff;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.profile-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 7px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.back-btn:hover {
+  background: #f3f4f6;
+  color: #1a1a2e;
+}
+
+.profile-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.profile-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: #555;
+}
+
+.profile-logout-btn {
+  padding: 8px 16px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-logout-btn:hover {
+  background: #fecaca;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+.profile-main {
+  max-width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* ===== ГЕРОЙ БЛОК ===== */
+.profile-hero {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  color: #fff;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  flex-shrink: 0;
+  border: 3px solid rgba(255,255,255,0.4);
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.profile-meta-text {
+  opacity: 0.8;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.profile-status {
+  background: rgba(255,255,255,0.2);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* ===== ГРИД КАРТОЧЕК ===== */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* ===== КАРТОЧКА ===== */
+.profile-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.profile-card-wide {
+  grid-column: 1 / -1;
+}
+
+.profile-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-card-icon {
+  font-size: 22px;
+}
+
+.profile-card-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* ===== ПОЛЯ ПРОФИЛЯ ===== */
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.profile-field:last-child {
+  border-bottom: none;
+}
+
+.profile-field-label {
+  font-size: 13px;
+  color: #888;
+}
+
+.profile-field-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a2e;
+  text-align: right;
+  max-width: 60%;
+  word-break: break-all;
+}
+
+/* ===== БОЛЬНИЦА ===== */
+.hospital-info-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+.hospital-info-row {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.hospital-info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.profile-tag {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.no-hospital {
+  text-align: center;
+  padding: 20px 0;
+  color: #888;
+}
+
+.no-hospital p {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.change-hospital-btn {
+  margin-top: 8px;
+  padding: 9px 20px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.change-hospital-btn:hover {
+  background: #4338ca;
+}
+
+/* ===== ЗАПИСЬ НА ПРИЁМ ===== */
+.appointment-status {
+  font-size: 15px;
+  font-weight: 700;
+  color: #16a34a;
+  margin-bottom: 20px;
+}
+
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.appointment-field {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.appointment-field-icon {
+  font-size: 22px;
+}
+
+.appointment-field-label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 3px;
+}
+
+.appointment-field-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.appointment-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-appointment-btn {
+  padding: 9px 20px;
+  background: #ede9fe;
+  color: #7c3aed;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-appointment-btn:hover {
+  background: #ddd6fe;
+}
+
+.cancel-appointment-btn {
+  padding: 9px 20px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-appointment-btn:hover {
+  background: #fecaca;
+}
+
+.no-appointment {
+  text-align: center;
+  padding: 20px 0;
+  color: #888;
+}
+
+.no-appointment p {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.add-appointment-btn {
+  padding: 11px 28px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-appointment-btn:hover {
+  background: #4338ca;
+}
+
+/* ===== ФОРМА ЗАПИСИ ===== */
+.appointment-form {
+  margin-top: 24px;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.appointment-form h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.form-group input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+
+.form-btns {
+  display: flex;
+  gap: 12px;
+}
+
+.save-btn {
+  padding: 10px 28px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.save-btn:hover {
+  background: #4338ca;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background: #f3f4f6;
+  color: #555;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancel-btn:hover {
+  background: #e5e7eb;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 20px;
+  }
+
+  .profile-main {
+    padding: 20px 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

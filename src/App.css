@@ -85,18 +85,19 @@ h2 {
   transform: scale(0.98);
 }
 
-/* Контейнер для центрирования */
+
 .toggle-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px; /* Отступ от фиолетовой кнопки */
+    display: flex;
+    justify-content: center; 
+    width: 100%;
+    margin-top: 15px;
 }
 
-/* Стили самой «ссылки» */
+
 .toggle-btn {
   background: none;
   border: none;
-  color: #007bff; /* Цвет ссылки (или выбери фиолетовый под стиль) */
+  color: #007bff;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;

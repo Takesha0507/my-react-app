@@ -1,0 +1,188 @@
+/* ===== ОБЁРТКА — ВО ВЕСЬ ЭКРАН ===== */
+.auth-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  font-family: sans-serif;
+}
+
+/* ===== ЛЕВАЯ ПАНЕЛЬ — ФОРМА ===== */
+.auth-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fb;
+  padding: 40px 24px;
+}
+
+/* ===== ПРАВАЯ ПАНЕЛЬ — ДЕКОР ===== */
+.auth-right {
+  flex: 1;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #fff;
+}
+
+.auth-right-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.auth-right-sub {
+  font-size: 16px;
+  opacity: 0.85;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.auth-right-icon {
+  font-size: 100px;
+  margin-bottom: 32px;
+}
+
+.auth-right-features {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.auth-right-feature {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ===== КАРТОЧКА ФОРМЫ ===== */
+.auth-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.auth-title {
+  margin-bottom: 8px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 28px;
+}
+
+/* ===== ПОЛЯ ВВОДА ===== */
+.auth-input-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+.auth-input {
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fafafa;
+}
+
+.auth-input:focus {
+  border-color: #4f46e5;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* ===== ОШИБКИ ===== */
+.auth-error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ===== КНОПКА ОТПРАВКИ ===== */
+.auth-submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.auth-submit-btn:hover {
+  background: #4338ca;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===== ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМА ===== */
+.auth-toggle {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.auth-toggle p {
+  margin: 0;
+}
+
+.auth-link-btn {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===== АДАПТИВ ===== */
+@media (max-width: 768px) {
+  .auth-right {
+    display: none;
+  }
+  .auth-left {
+    padding: 24px 16px;
+  }
+}
