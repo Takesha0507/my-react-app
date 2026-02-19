@@ -40,7 +40,7 @@ const Profile = ({ onLogout, user }) => {
 
   return (
     <div className="profile-wrapper">
-      {/* Шапка */}
+
       <header className="profile-header">
         <div className="profile-header-left">
           <button className="back-btn" onClick={() => navigate('/home')}>← Назад</button>
@@ -54,7 +54,7 @@ const Profile = ({ onLogout, user }) => {
 
       <main className="profile-main">
 
-        {/* Верхний блок — аватар + имя */}
+
         <div className="profile-hero">
           <div className="profile-avatar">{getInitials(currentUser.fullName)}</div>
           <div className="profile-hero-info">
@@ -66,7 +66,7 @@ const Profile = ({ onLogout, user }) => {
 
         <div className="profile-grid">
 
-          {/* Личные данные */}
+
           <div className="profile-card">
             <div className="profile-card-header">
               <span className="profile-card-icon">👤</span>
@@ -80,7 +80,7 @@ const Profile = ({ onLogout, user }) => {
             </div>
           </div>
 
-          {/* Прикреплённая больница */}
+
           <div className="profile-card">
             <div className="profile-card-header">
               <span className="profile-card-icon">🏥</span>
@@ -111,7 +111,6 @@ const Profile = ({ onLogout, user }) => {
             )}
           </div>
 
-          {/* Запись на приём */}
           <div className="profile-card profile-card-wide">
             <div className="profile-card-header">
               <span className="profile-card-icon">📅</span>
@@ -145,7 +144,7 @@ const Profile = ({ onLogout, user }) => {
               </div>
             )}
 
-            {/* Форма записи */}
+
             {showForm && (
               <div className="appointment-form">
                 <h4>📝 {appointment ? 'Изменить запись' : 'Новая запись'}</h4>

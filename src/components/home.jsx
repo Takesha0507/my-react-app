@@ -142,18 +142,20 @@ const Home = ({ onLogout, user }) => {
 
   return (
     <div className="home-wrapper">
-      {/* Шапка */}
+
       <header className="home-header">
         <div className="home-logo">MedApp</div>
         <div className="home-header-right">
+          <button className="home-nav-btn" onClick={() => navigate('/clinics')}>🏥 Клиники</button>
+          <button className="home-nav-btn" onClick={() => navigate('/about')}>ℹ️ О сервисе</button>
           <span className="home-user-email">{currentUser.email}</span>
-          <button className="home-profile-btn" onClick={() => navigate('/profile')}>👤 Мой профиль</button>
+          <button className="home-profile-btn" onClick={() => navigate('/profile')}>👤 Профиль</button>
           <button className="home-logout-btn" onClick={onLogout}>Выйти</button>
         </div>
       </header>
 
       <main className="home-main">
-        {/* Баннер */}
+
         <div className="home-banner">
           <h1 className="home-banner-title">
             Добро пожаловать, {currentUser.fullName || 'пользователь'}! 👋
@@ -165,7 +167,7 @@ const Home = ({ onLogout, user }) => {
           </p>
         </div>
 
-        {/* Карточки пользователя */}
+
         <div className="home-cards-grid">
           <InfoCard label="ФИО" value={currentUser.fullName || '—'} icon="👤" />
           <InfoCard label="Email" value={currentUser.email} icon="📧" />
@@ -173,7 +175,7 @@ const Home = ({ onLogout, user }) => {
           <InfoCard label="ИИН" value={currentUser.iin || '—'} icon="🪪" />
         </div>
 
-        {/* Секция выбора больницы */}
+
         <div className="hospital-section">
           <div className="hospital-section-header">
             <h2 className="hospital-section-title">🏥 Больницы Астаны</h2>
@@ -184,7 +186,7 @@ const Home = ({ onLogout, user }) => {
             )}
           </div>
 
-          {/* Поиск и фильтры */}
+
           <div className="hospital-controls">
             <input
               className="hospital-search"
@@ -206,7 +208,7 @@ const Home = ({ onLogout, user }) => {
             </div>
           </div>
 
-          {/* Список больниц */}
+ 
           <div className="hospital-list">
             {filtered.length === 0 && (
               <p className="hospital-empty">Ничего не найдено</p>

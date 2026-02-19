@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import RegistrationForm from "./components/RegistrationForm";
 import Home from "./components/home";
 import Profile from "./components/profile";
+import Clinics from "./components/content1";
+import About from "./components/content2";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -40,10 +42,18 @@ function App() {
           element={isLoggedIn ? <Profile onLogout={handleLogout} user={activeUser} /> : <Navigate to="/register" />}
         />
         <Route
+          path="/clinics"
+          element={<Clinics onLogout={handleLogout} user={activeUser} />}
+        />
+        <Route
+          path="/about"
+          element={<About onLogout={handleLogout} user={activeUser} />}
+        />
+        <Route
           path="/register"
           element={!isLoggedIn ? <RegistrationForm onAuthSuccess={handleLogin} /> : <Navigate to="/home" />}
         />
-        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/" element={<Navigate to="/about" />} />
       </Routes>
     </Router>
   );

@@ -63,7 +63,7 @@ const RegistrationForm = ({ onAuthSuccess }) => {
   return (
     <div className="auth-wrapper">
 
-      {/* ЛЕВАЯ ЧАСТЬ — форма */}
+
       <div className="auth-left">
         <div className="auth-card">
           <h2 className="auth-title">{isLogin ? 'Вход в аккаунт' : 'Создать аккаунт'}</h2>
@@ -122,7 +122,7 @@ const RegistrationForm = ({ onAuthSuccess }) => {
         </div>
       </div>
 
-      {/* ПРАВАЯ ЧАСТЬ — декор */}
+
       <div className="auth-right">
         <div className="auth-right-icon">🏥</div>
         <h2 className="auth-right-title">MedApp</h2>
