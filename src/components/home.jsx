@@ -1,97 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HospitalModal from './HospitalModal';
+import hospitalService from '../services/hospitalService';
+import authService from '../services/authService';
 import './home.css';
-
-const HOSPITALS = [
-  {
-    id: 1,
-    name: 'Национальный научный медицинский центр',
-    address: 'пр. Абылай хана, 42',
-    type: 'Многопрофильный',
-    rating: 4.8,
-    reviews: 312,
-    phone: '+7 (7172) 69-71-98',
-    workTime: 'Круглосуточно',
-    tags: ['Хирургия', 'Кардиология', 'Неврология'],
-  },
-  {
-    id: 2,
-    name: 'Городская больница №2',
-    address: 'ул. Бейбитшилик, 54',
-    type: 'Государственная',
-    rating: 4.2,
-    reviews: 187,
-    phone: '+7 (7172) 32-44-78',
-    workTime: 'Круглосуточно',
-    tags: ['Терапия', 'Хирургия', 'Педиатрия'],
-  },
-  {
-    id: 3,
-    name: 'Alanda Clinic',
-    address: 'пр. Тауелсыздык, 33',
-    type: 'Частная',
-    rating: 4.7,
-    reviews: 254,
-    phone: '+7 (7172) 51-53-00',
-    workTime: 'Пн–Сб 8:00–20:00',
-    tags: ['Косметология', 'Гинекология', 'УЗИ'],
-  },
-  {
-    id: 4,
-    name: 'Stanford Medical Clinic',
-    address: 'пр. Кабанбай батыра, 28',
-    type: 'Частная',
-    rating: 4.6,
-    reviews: 198,
-    phone: '+7 (7172) 51-53-53',
-    workTime: 'Пн–Пт 9:00–19:00',
-    tags: ['Диагностика', 'Терапия', 'Эндокринология'],
-  },
-  {
-    id: 5,
-    name: 'НЦМД — Центр материнства и детства',
-    address: 'пр. Туран, 34/1',
-    type: 'Государственная',
-    rating: 4.5,
-    reviews: 423,
-    phone: '+7 (7172) 79-36-23',
-    workTime: 'Круглосуточно',
-    tags: ['Педиатрия', 'Роддом', 'Неонатология'],
-  },
-  {
-    id: 6,
-    name: 'Tesla-Med Диагностический центр',
-    address: 'ул. Петрова, 30',
-    type: 'Частная',
-    rating: 4.9,
-    reviews: 341,
-    phone: '+7 (700) 836-91-77',
-    workTime: 'Круглосуточно',
-    tags: ['МРТ', 'КТ', 'УЗИ'],
-  },
-  {
-    id: 7,
-    name: 'Медицинский центр Самрук',
-    address: 'пр. Кабанбай батыра, 58Б',
-    type: 'Частная',
-    rating: 4.4,
-    reviews: 134,
-    phone: '+7 (701) 026-94-54',
-    workTime: 'Пн–Сб 8:00–21:00',
-    tags: ['Терапия', 'Лабораторная диагностика'],
-  },
-  {
-    id: 8,
-    name: 'НЦТО им. академика Батпенова',
-    address: 'ул. Кенесары, 82',
-    type: 'Государственная',
-    rating: 4.6,
-    reviews: 276,
-    phone: '+7 (7172) 69-71-99',
-    workTime: 'Пн–Пт 8:00–18:00',
-    tags: ['Травматология', 'Ортопедия', 'Реабилитация'],
-  },
-];
 
 const Stars = ({ rating }) => {
   return (
@@ -110,22 +22,68 @@ const Stars = ({ rating }) => {
 const Home = ({ onLogout, user }) => {
   const currentUser = user || JSON.parse(localStorage.getItem('activeUser') || 'null');
   const navigate = useNavigate();
+  const [hospitals, setHospitals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedHospital, setSelectedHospital] = useState(null);
+  const [modalHospital, setModalHospital] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState('Все');
-  const [confirmedHospital, setConfirmedHospital] = useState(() => {
-    const saved = localStorage.getItem('confirmedHospital');
-    return saved ? JSON.parse(saved) : null;
-  });
+  const [confirmedHospital, setConfirmedHospital] = useState(null);
+  const [loadingAttached, setLoadingAttached] = useState(true);
+
+  // Загружаем больницы из API при монтировании
+  useEffect(() => {
+    const fetchHospitals = async () => {
+      try {
+        setLoading(true);
+        const response = await hospitalService.getAll();
+        if (response && response.hospitals) {
+          setHospitals(response.hospitals);
+        } else if (response && Array.isArray(response)) {
+          setHospitals(response);
+        } else {
+          setHospitals([]);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки больниц:', err);
+        setError('Не удалось загрузить список больниц');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHospitals();
+  }, []);
+
+  // Загружаем информацию о прикреплённой больнице
+  useEffect(() => {
+    const fetchAttachedHospital = async () => {
+      try {
+        setLoadingAttached(true);
+        const response = await authService.getAttachedHospital();
+        if (response && response.hospital) {
+          setConfirmedHospital(response.hospital);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки прикреплённой больницы:', err);
+      } finally {
+        setLoadingAttached(false);
+      }
+    };
+
+    fetchAttachedHospital();
+  }, []);
 
   if (!currentUser) return <div style={{ padding: 40 }}>Загрузка...</div>;
 
   const types = ['Все', 'Государственная', 'Частная', 'Многопрофильный'];
 
-  const filtered = HOSPITALS.filter((h) => {
+  const filtered = hospitals.filter((h) => {
     const matchSearch = h.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       h.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      h.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
+      (h.tags && h.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
     const matchType = filterType === 'Все' || h.type === filterType;
     return matchSearch && matchType;
   });
@@ -134,10 +92,31 @@ const Home = ({ onLogout, user }) => {
     setSelectedHospital(hospital);
   };
 
-  const handleConfirm = () => {
-    setConfirmedHospital(selectedHospital);
-    localStorage.setItem('confirmedHospital', JSON.stringify(selectedHospital));
-    setSelectedHospital(null);
+  const handleOpenModal = (hospital) => {
+    setModalHospital(hospital);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setModalHospital(null);
+  };
+
+  const handleConfirm = async () => {
+    if (modalHospital) {
+      try {
+        // Сохраняем в БД через API
+        const response = await authService.attachHospital(modalHospital._id);
+        if (response.success) {
+          // Обновляем состояние с сохранённой больницей
+          setConfirmedHospital(modalHospital);
+          setSelectedHospital(null);
+          setIsModalOpen(false);
+        }
+      } catch (err) {
+        console.error('Ошибка при прикреплении:', err);
+      }
+    }
   };
 
   return (
@@ -158,7 +137,7 @@ const Home = ({ onLogout, user }) => {
 
         <div className="home-banner">
           <h1 className="home-banner-title">
-            Добро пожаловать, {currentUser.fullName || 'пользователь'}! 👋
+            Добро пожаловать, {currentUser.name || currentUser.fullName || 'пользователь'}! 👋
           </h1>
           <p className="home-banner-sub">
             {confirmedHospital
@@ -169,10 +148,80 @@ const Home = ({ onLogout, user }) => {
 
 
         <div className="home-cards-grid">
-          <InfoCard label="ФИО" value={currentUser.fullName || '—'} icon="👤" />
+          <InfoCard label="ФИО" value={currentUser.name || currentUser.fullName || '—'} icon="👤" />
           <InfoCard label="Email" value={currentUser.email} icon="📧" />
           <InfoCard label="Телефон" value={currentUser.phone || '—'} icon="📞" />
           <InfoCard label="ИИН" value={currentUser.iin || '—'} icon="🪪" />
+        </div>
+
+        {/* Раздел прикреплённой больницы */}
+        <div className="attached-hospital-section">
+          <div className="attached-hospital-header">
+            <h2 className="attached-hospital-title">🏥 Прикреплённная больница</h2>
+          </div>
+          
+          {loadingAttached ? (
+            <p className="attached-hospital-loading">⏳ Загрузка...</p>
+          ) : confirmedHospital ? (
+            <div className="attached-hospital-card">
+              <div className="attached-hospital-top">
+                <div>
+                  <h3 className="attached-hospital-name">{confirmedHospital.name}</h3>
+                  <p className="attached-hospital-address">📍 {confirmedHospital.address}</p>
+                </div>
+                <span className={`attached-type-badge type-${confirmedHospital.type === 'Частная' ? 'private' : confirmedHospital.type === 'Государственная' ? 'state' : 'multi'}`}>
+                  {confirmedHospital.type}
+                </span>
+              </div>
+
+              <Stars rating={confirmedHospital.rating} />
+              <p className="attached-hospital-reviews">{confirmedHospital.reviews} отзывов</p>
+
+              <div className="attached-hospital-info">
+                <div className="attached-info-item">
+                  <span className="attached-info-label">📞 Телефон:</span>
+                  <a href={`tel:${confirmedHospital.phone}`} className="attached-info-value">
+                    {confirmedHospital.phone}
+                  </a>
+                </div>
+                <div className="attached-info-item">
+                  <span className="attached-info-label">🕐 Рабочее время:</span>
+                  <span className="attached-info-value">{confirmedHospital.workingHours}</span>
+                </div>
+              </div>
+
+              {confirmedHospital.tags && (
+                <div className="attached-hospital-tags">
+                  <span className="attached-tags-label">💊 Сервисы:</span>
+                  <div className="attached-tags-list">
+                    {confirmedHospital.tags.map((tag) => (
+                      <span key={tag} className="attached-tag">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <button 
+                className="attached-hospital-change-btn"
+                onClick={() => {
+                  setSelectedHospital(null);
+                  document.querySelector('.hospital-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                ✏️ Изменить больницу
+              </button>
+            </div>
+          ) : (
+            <div className="attached-hospital-empty">
+              <p className="attached-empty-text">Вы ещё не прикреплены к больнице</p>
+              <button 
+                className="attached-empty-btn"
+                onClick={() => document.querySelector('.hospital-section')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Выбрать больницу
+              </button>
+            </div>
+          )}
         </div>
 
 
@@ -210,13 +259,19 @@ const Home = ({ onLogout, user }) => {
 
  
           <div className="hospital-list">
-            {filtered.length === 0 && (
+            {loading && (
+              <p className="hospital-empty">⏳ Загрузка больниц...</p>
+            )}
+            {error && (
+              <p className="hospital-empty">❌ {error}</p>
+            )}
+            {!loading && filtered.length === 0 && (
               <p className="hospital-empty">Ничего не найдено</p>
             )}
-            {filtered.map((hospital) => (
+            {!loading && filtered.map((hospital) => (
               <div
-                key={hospital.id}
-                className={`hospital-card ${selectedHospital?.id === hospital.id ? 'selected' : ''} ${confirmedHospital?.id === hospital.id ? 'confirmed' : ''}`}
+                key={hospital._id}
+                className={`hospital-card ${selectedHospital?._id === hospital._id ? 'selected' : ''} ${confirmedHospital?._id === hospital._id ? 'confirmed' : ''}`}
                 onClick={() => handleSelect(hospital)}
               >
                 <div className="hospital-card-top">
@@ -228,7 +283,7 @@ const Home = ({ onLogout, user }) => {
                     <span className={`hospital-type-badge type-${hospital.type === 'Частная' ? 'private' : hospital.type === 'Государственная' ? 'state' : 'multi'}`}>
                       {hospital.type}
                     </span>
-                    {confirmedHospital?.id === hospital.id && (
+                    {confirmedHospital?._id === hospital._id && (
                       <span className="confirmed-mark">✓</span>
                     )}
                   </div>
@@ -238,18 +293,18 @@ const Home = ({ onLogout, user }) => {
                 <div className="hospital-reviews">{hospital.reviews} отзывов</div>
 
                 <div className="hospital-tags">
-                  {hospital.tags.map((tag) => (
+                  {hospital.tags && hospital.tags.map((tag) => (
                     <span key={tag} className="hospital-tag">{tag}</span>
                   ))}
                 </div>
 
                 <div className="hospital-meta">
                   <span>📞 {hospital.phone}</span>
-                  <span>🕐 {hospital.workTime}</span>
+                  <span>🕐 {hospital.workingHours}</span>
                 </div>
 
-                {selectedHospital?.id === hospital.id && (
-                  <button className="hospital-confirm-btn" onClick={(e) => { e.stopPropagation(); handleConfirm(); }}>
+                {selectedHospital?._id === hospital._id && (
+                  <button className="hospital-confirm-btn" onClick={(e) => { e.stopPropagation(); handleOpenModal(hospital); }}>
                     Прикрепиться к этой больнице
                   </button>
                 )}
@@ -258,6 +313,13 @@ const Home = ({ onLogout, user }) => {
           </div>
         </div>
       </main>
+
+      <HospitalModal
+        hospital={modalHospital}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirm}
+      />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './RegistrationForm.css';
+import authService from '../services/authService';
 
 const RegistrationForm = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(false);
@@ -13,6 +14,7 @@ const RegistrationForm = ({ onAuthSuccess }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,31 +34,37 @@ const RegistrationForm = ({ onAuthSuccess }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
+    if (!validate()) return;
+
+    setIsLoading(true);
+    try {
       if (isLogin) {
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const user = users.find(
-          (u) => u.email === formData.email && u.password === formData.password
-        );
-        if (user) {
-          onAuthSuccess(user);
-        } else {
-          setErrors({ email: 'Неверный email или пароль' });
+        // Вход
+        const response = await authService.login(formData.email, formData.password);
+        if (response.user) {
+          onAuthSuccess(response.user);
         }
       } else {
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const exists = users.find((u) => u.email === formData.email);
-        if (exists) {
-          setErrors({ email: 'Этот email уже зарегистрирован' });
-          return;
+        // Регистрация
+        const response = await authService.register({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          iin: formData.iin,
+          password: formData.password
+        });
+        if (response.user) {
+          onAuthSuccess(response.user);
         }
-        const newUser = { ...formData };
-        users.push(newUser);
-        localStorage.setItem('users', JSON.stringify(users));
-        onAuthSuccess(newUser);
       }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Ошибка при выполнении операции';
+      setErrors({ submit: errorMessage });
+      console.error('Auth error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,6 +80,8 @@ const RegistrationForm = ({ onAuthSuccess }) => {
           </p>
 
           <form onSubmit={handleSubmit}>
+            {errors.submit && <div className="auth-error" style={{marginBottom: '15px', padding: '10px', backgroundColor: '#ffe0e0', borderRadius: '4px'}}>{errors.submit}</div>}
+            
             {!isLogin && (
               <>
                 <div className="auth-input-group">
@@ -106,8 +116,8 @@ const RegistrationForm = ({ onAuthSuccess }) => {
               {errors.password && <span className="auth-error">{errors.password}</span>}
             </div>
 
-            <button type="submit" className="auth-submit-btn">
-              {isLogin ? 'Войти' : 'Зарегистрироваться'}
+            <button type="submit" className="auth-submit-btn" disabled={isLoading}>
+              {isLoading ? 'Загрузка...' : (isLogin ? 'Войти' : 'Зарегистрироваться')}
             </button>
           </form>
 

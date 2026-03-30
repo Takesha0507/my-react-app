@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import '../App.css';
+import authService from '../services/authService';
 
-const Login = () => {
+const Login = ({ onAuthSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,12 +29,22 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      console.log('Данные для входа:', formData);
-      alert('Вход выполнен успешно!');
+    if (!validate()) return;
 
+    setIsLoading(true);
+    try {
+      const response = await authService.login(formData.email, formData.password);
+      if (response.user) {
+        onAuthSuccess(response.user);
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Ошибка при входе';
+      setErrors({ submit: errorMessage });
+      console.error('Login error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,6 +52,8 @@ const Login = () => {
     <div className="registration-card">
       <h2>Вход в аккаунт</h2>
       <form onSubmit={handleSubmit}>
+        
+        {errors.submit && <div className="error-text" style={{marginBottom: '15px', padding: '10px', backgroundColor: '#ffe0e0', borderRadius: '4px'}}>{errors.submit}</div>}
         
         <div className="input-group">
           <label>Электронная почта</label>
@@ -65,7 +79,9 @@ const Login = () => {
           {errors.password && <span className="error-text">{errors.password}</span>}
         </div>
 
-        <button type="submit" className="submit-btn">Войти</button>
+        <button type="submit" className="submit-btn" disabled={isLoading}>
+          {isLoading ? 'Загрузка...' : 'Войти'}
+        </button>
         
         <div className="auth-footer">
           <p>Нет аккаунта? <a href="/registration">Зарегистрироваться</a></p>

@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 import './profile.css';
 
+// Компоненты-помощники
+const ProfileField = ({ label, value }) => (
+  <div className="profile-field">
+    <span className="profile-field-label">{label}</span>
+    <span className="profile-field-value">{value || '—'}</span>
+  </div>
+);
+
+const AppointmentField = ({ icon, label, value }) => (
+  <div className="appointment-field">
+    <span className="appointment-field-icon">{icon}</span>
+    <div>
+      <div className="appointment-field-label">{label}</div>
+      <div className="appointment-field-value">{value}</div>
+    </div>
+  </div>
+);
+
 const Profile = ({ onLogout, user }) => {
-  const currentUser = user || JSON.parse(localStorage.getItem('activeUser') || 'null');
+  const currentUser = user;
   const navigate = useNavigate();
 
   const [appointment, setAppointment] = useState(null);
@@ -12,10 +31,19 @@ const Profile = ({ onLogout, user }) => {
   const [form, setForm] = useState({ date: '', time: '', doctor: '', reason: '' });
 
   useEffect(() => {
-    const savedAppointment = localStorage.getItem('appointment');
-    const savedHospital = localStorage.getItem('confirmedHospital');
-    if (savedAppointment) setAppointment(JSON.parse(savedAppointment));
-    if (savedHospital) setHospital(JSON.parse(savedHospital));
+    // Загружаем информацию о прикреплённой больнице
+    const loadAttachedHospital = async () => {
+      try {
+        const response = await authService.getAttachedHospital();
+        if (response && response.hospital) {
+          setHospital(response.hospital);
+        }
+      } catch (err) {
+        console.error('Ошибка загрузки больницы:', err);
+      }
+    };
+
+    loadAttachedHospital();
   }, []);
 
   if (!currentUser) return <div style={{ padding: 40 }}>Загрузка...</div>;
@@ -24,13 +52,13 @@ const Profile = ({ onLogout, user }) => {
     if (!form.date || !form.time) return;
     const newAppointment = { ...form, createdAt: new Date().toLocaleDateString('ru-RU') };
     setAppointment(newAppointment);
-    localStorage.setItem('appointment', JSON.stringify(newAppointment));
+    // localStorage.setItem('appointment', JSON.stringify(newAppointment));
     setShowForm(false);
   };
 
   const handleCancelAppointment = () => {
     setAppointment(null);
-    localStorage.removeItem('appointment');
+    // localStorage.removeItem('appointment');
   };
 
   const getInitials = (name) => {
@@ -56,9 +84,9 @@ const Profile = ({ onLogout, user }) => {
 
 
         <div className="profile-hero">
-          <div className="profile-avatar">{getInitials(currentUser.fullName)}</div>
+          <div className="profile-avatar">{getInitials(currentUser.name)}</div>
           <div className="profile-hero-info">
-            <h1 className="profile-name">{currentUser.fullName || 'Пользователь'}</h1>
+            <h1 className="profile-name">{currentUser.name || 'Пользователь'}</h1>
             <p className="profile-meta-text">{currentUser.email}</p>
             <span className="profile-status">✅ Аккаунт подтверждён</span>
           </div>
@@ -73,7 +101,7 @@ const Profile = ({ onLogout, user }) => {
               <h3>Личные данные</h3>
             </div>
             <div className="profile-fields">
-              <ProfileField label="ФИО" value={currentUser.fullName} />
+              <ProfileField label="ФИО" value={currentUser.name} />
               <ProfileField label="Email" value={currentUser.email} />
               <ProfileField label="Телефон" value={currentUser.phone} />
               <ProfileField label="ИИН" value={currentUser.iin} />
@@ -91,7 +119,7 @@ const Profile = ({ onLogout, user }) => {
                 <div className="hospital-info-name">{hospital.name}</div>
                 <div className="hospital-info-row">📍 {hospital.address}</div>
                 <div className="hospital-info-row">📞 {hospital.phone}</div>
-                <div className="hospital-info-row">🕐 {hospital.workTime}</div>
+                <div className="hospital-info-row">🕐 {hospital.workingHours}</div>
                 <div className="hospital-info-tags">
                   {hospital.tags?.map(tag => (
                     <span key={tag} className="profile-tag">{tag}</span>
@@ -179,22 +207,5 @@ const Profile = ({ onLogout, user }) => {
     </div>
   );
 };
-
-const ProfileField = ({ label, value }) => (
-  <div className="profile-field">
-    <span className="profile-field-label">{label}</span>
-    <span className="profile-field-value">{value || '—'}</span>
-  </div>
-);
-
-const AppointmentField = ({ icon, label, value }) => (
-  <div className="appointment-field">
-    <span className="appointment-field-icon">{icon}</span>
-    <div>
-      <div className="appointment-field-label">{label}</div>
-      <div className="appointment-field-value">{value}</div>
-    </div>
-  </div>
-);
 
 export default Profile;

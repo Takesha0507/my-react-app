@@ -85,7 +85,7 @@ const Clinics = ({ onLogout, user }) => {
       </header>
 
       <main className="clinics-main">
-        {/* Герой-секция */}
+
         <div className="clinics-hero">
           <h1 className="clinics-hero-title">🏥 Клиники Астаны</h1>
           <p className="clinics-hero-subtitle">
@@ -93,7 +93,7 @@ const Clinics = ({ onLogout, user }) => {
           </p>
         </div>
 
-        {/* Список клиник */}
+
         <div className="clinics-list">
           {CLINICS_DATA.map((clinic) => (
             <div key={clinic.id} className="clinic-detail-card">
@@ -136,7 +136,7 @@ const Clinics = ({ onLogout, user }) => {
         </div>
       </main>
 
-      {/* Футер */}
+
       <footer className="clinics-footer">
         <p>© 2026 MedApp. Все права защищены.</p>
         <div className="footer-links">

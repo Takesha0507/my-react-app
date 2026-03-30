@@ -8,7 +8,7 @@ const About = ({ onLogout, user }) => {
 
   return (
     <div className="about-wrapper">
-      {/* Шапка */}
+
       <header className="about-header">
         <div className="about-header-left">
           <button className="back-btn" onClick={() => navigate('/home')}>← Назад</button>
@@ -23,7 +23,7 @@ const About = ({ onLogout, user }) => {
       </header>
 
       <main className="about-main">
-        {/* Герой */}
+
         <div className="about-hero">
           <div className="about-hero-content">
             <h1 className="about-hero-title">Ваше здоровье — в надёжных руках 🩺</h1>
@@ -40,7 +40,7 @@ const About = ({ onLogout, user }) => {
           </div>
         </div>
 
-        {/* Преимущества */}
+
         <section className="about-features">
           <h2 className="section-title">Почему выбирают MedApp?</h2>
           <div className="features-grid">
@@ -77,7 +77,6 @@ const About = ({ onLogout, user }) => {
           </div>
         </section>
 
-        {/* Как это работает */}
         <section className="about-how">
           <h2 className="section-title">Как это работает?</h2>
           <div className="how-steps">
@@ -101,7 +100,7 @@ const About = ({ onLogout, user }) => {
           </div>
         </section>
 
-        {/* Статистика */}
+
         <section className="about-stats">
           <div className="stat-item">
             <div className="stat-number">8+</div>
@@ -121,7 +120,7 @@ const About = ({ onLogout, user }) => {
           </div>
         </section>
 
-        {/* CTA секция */}
+
         <section className="about-cta">
           <h2>Готовы начать?</h2>
           <p>Присоединяйтесь к тысячам пользователей, которые уже управляют своим здоровьем с MedApp</p>
@@ -131,7 +130,8 @@ const About = ({ onLogout, user }) => {
         </section>
       </main>
 
-      {/* Футер */}
+
+
       <footer className="about-footer">
         <div className="footer-content">
           <div className="footer-col">
